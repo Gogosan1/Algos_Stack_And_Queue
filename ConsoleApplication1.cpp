@@ -2,14 +2,18 @@
 #include <list>
 #include <locale.h>
 #include <ctime>
-const int array_size = 1000;
 
 template <typename T>
 struct stack_array
 {
-    T array[array_size];
+    T *array;
     int counter_of_elm = 0;
-    T* hop = nullptr;
+    T *hop = nullptr;
+
+    stack_array(int arraysize)
+    {
+        array = new T[arraysize];
+    }
 
     void add_element(T elm)
     {
@@ -57,57 +61,68 @@ struct stack_array
     }
 };
 
-
-
 template <typename T>
 struct stack_list
 {
-    struct Node {
+    struct Node
+    {
         T data;
-        Node* next;
-        Node(const T& value) : data(value), next(nullptr) {}
+        Node *next;
+        Node(const T &value) : data(value), next(nullptr) {}
     };
 
-    Node* topPtr;
+    Node *topPtr;
 
     stack_list() : topPtr(nullptr) {}
 
-    void push(const T& value) {
-        Node* newNode = new Node(value);
+    void push(const T &value)
+    {
+        Node *newNode = new Node(value);
         newNode->next = topPtr;
         topPtr = newNode;
     }
 
-private: void pop() {
-        if (!isEmpty()) {
-            Node* temp = topPtr;
+private:
+    void pop()
+    {
+        if (!isEmpty())
+        {
+            Node *temp = topPtr;
             topPtr = topPtr->next;
             delete temp;
         }
-        else {
+        else
+        {
             std::cout << "Стек пуст!" << std::endl;
         }
     }
 
-public:  T top() {
-        if (!isEmpty()) {
+public:
+    T top()
+    {
+        if (!isEmpty())
+        {
             T dat = topPtr->data;
             pop();
             return dat;
         }
-        else {
+        else
+        {
             std::cout << "Стек пуст!";
-            return -1; // 
+            return -1; //
         }
     }
 
-    bool isEmpty() {
+    bool isEmpty()
+    {
         return topPtr == nullptr;
     }
 
-    ~stack_list() {
-        while (topPtr != nullptr) {
-            Node* temp = topPtr;
+    ~stack_list()
+    {
+        while (topPtr != nullptr)
+        {
+            Node *temp = topPtr;
             topPtr = topPtr->next;
             delete temp;
         }
@@ -117,10 +132,15 @@ public:  T top() {
 template <typename T>
 struct queue_array
 {
-    T array[array_size];
+    T *array;
     int counter_of_elm = 0;
-    T* first = nullptr;
-    T* last = nullptr;
+    T *first = nullptr;
+    T *last = nullptr;
+
+    queue_array(int array_size)
+    {
+        array = new T[array_size];
+    }
 
     void add_element(T elm)
     {
@@ -138,7 +158,7 @@ struct queue_array
                 std::cout << "Ошибка переполнение очереди.\n";
             }
             else
-            {///
+            { ///
                 if (last == &array[array_size])
                 {
                     last -= array_size;
@@ -191,83 +211,97 @@ struct queue_array
         {
             std::cout << "Ошибка. В очереди нет элементов для извлечения.\n";
         }
-
     }
-
 };
 
 template <typename T>
 struct queue_list
 {
-    struct Node {
+    struct Node
+    {
         T data;
-        Node* next;
-        Node(const T& value) : data(value), next(nullptr) {}
+        Node *next;
+        Node(const T &value) : data(value), next(nullptr) {}
     };
 
-    Node* frontPtr; //начало очереди 
-    Node* endPtr; //конец очереди 
-
+    Node *frontPtr; // начало очереди
+    Node *endPtr;   // конец очереди
 
     queue_list() : frontPtr(nullptr), endPtr(nullptr) {}
 
-    void enqueue(const T& value) {
-        Node* newNode = new Node(value);
-        if (isEmpty()) {
+    void enqueue(const T &value)
+    {
+        Node *newNode = new Node(value);
+        if (isEmpty())
+        {
             frontPtr = newNode;
             endPtr = newNode;
         }
-        else {
+        else
+        {
             endPtr->next = newNode;
             endPtr = newNode;
         }
     }
 
-private: void dequeue() {
-        if (!isEmpty()) {
-            Node* temp = frontPtr;
+private:
+    void dequeue()
+    {
+        if (!isEmpty())
+        {
+            Node *temp = frontPtr;
             frontPtr = frontPtr->next;
             delete temp;
         }
-        else {
+        else
+        {
             std::cout << "Queue is empty!" << std::endl;
         }
     }
 
-public:  T front() {
-        if (!isEmpty()) {
+public:
+    T front()
+    {
+        if (!isEmpty())
+        {
             T dat = frontPtr->data;
             dequeue();
             return dat;
         }
-        else {
+        else
+        {
             std::cout << "Queue is empty!";
         }
     }
 
-    bool isEmpty() {
+    bool isEmpty()
+    {
         return frontPtr == nullptr;
     }
 
-    ~queue_list() {
-        while (frontPtr != nullptr) {
-            Node* temp = frontPtr;
+    ~queue_list()
+    {
+        while (frontPtr != nullptr)
+        {
+            Node *temp = frontPtr;
             frontPtr = frontPtr->next;
             delete temp;
         }
     }
-
 };
 
 int main()
 {
     unsigned long long start_time = clock();
     setlocale(LC_ALL, "");
-    stack_array<int> stack_arr;
-    queue_array<int> queue_arr;
+    int array_size;
+    std::cout << "Введите размер массива:";
+    std::cin >> array_size;
+    stack_array<int> stack_arr(array_size);
+    queue_array<int> queue_arr(array_size);
     stack_list<int> stack_lst;
     queue_list<int> queue_lst;
-  
+
     for (int i = 0; i < array_size; i++)
     {
         stack_arr.add_element(i);
@@ -286,6 +320,5 @@ int main()
     for (int i = 0; i < array_size; i++)
     {
         stack_lst.top();
-       // stack_lst.pop();
     }
 }
