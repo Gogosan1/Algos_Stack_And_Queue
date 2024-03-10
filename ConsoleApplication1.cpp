@@ -2,7 +2,7 @@
 #include <list>
 #include <locale.h>
 #include <ctime>
-const int array_size = 10000;
+const int array_size = 1000;
 
 template <typename T>
 struct stack_array
@@ -78,7 +78,7 @@ struct stack_list
         topPtr = newNode;
     }
 
-    void pop() {
+private: void pop() {
         if (!isEmpty()) {
             Node* temp = topPtr;
             topPtr = topPtr->next;
@@ -89,9 +89,11 @@ struct stack_list
         }
     }
 
-    T top() {
+public:  T top() {
         if (!isEmpty()) {
-            return topPtr->data;
+            T dat = topPtr->data;
+            pop();
+            return dat;
         }
         else {
             std::cout << "Стек пуст!";
@@ -221,7 +223,7 @@ struct queue_list
         }
     }
 
-    void dequeue() {
+private: void dequeue() {
         if (!isEmpty()) {
             Node* temp = frontPtr;
             frontPtr = frontPtr->next;
@@ -232,9 +234,11 @@ struct queue_list
         }
     }
 
-    T front() {
+public:  T front() {
         if (!isEmpty()) {
-            return frontPtr->data;
+            T dat = frontPtr->data;
+            dequeue();
+            return dat;
         }
         else {
             std::cout << "Queue is empty!";
@@ -263,93 +267,7 @@ int main()
     queue_array<int> queue_arr;
     stack_list<int> stack_lst;
     queue_list<int> queue_lst;
-    /*while (true)
-    {
-        int a;
-        std::cout << "Сделайте выбор 1 - стек на массиве, 2 - очередь на массиве, 3 - стек на списке, 4 очередь на списке\n";
-        std::cin >> a;
-        switch (a)
-        {
-        case 1:
-            int b;
-            while (true)
-            {
-                std::cout << "Выберите: 1 - добавить элм в стек, 2 - извлечь элм из стека\n";
-                std::cin >> b;
-                if (b == 1)
-                {
-                    int input;
-                    std::cout << "Введите элемент\n";
-                    std::cin >> input;
-                    stack_arr.add_element(input);
-                }
-                else
-                {
-                    std::cout << stack_arr.get_element() << "\n";
-                }
-            }
-            break;
-        case 2:
-            while (true)
-            {
-                std::cout << "Выберите: 1 - добавить элм в очередь, 2 - извлечь элм из очереди\n";
-                std::cin >> b;
-                if (b == 1)
-                {
-                    int input;
-                    std::cout << "Введите элемент\n";
-                    std::cin >> input;
-                    queue_arr.add_element(input);
-                }
-                else
-                {
-                    std::cout << queue_arr.get_element() << "\n";
-                }
-            }
-            break;
-        case 3:
-            while (true)
-            {
-                std::cout << "Выберите: 1 - добавить элм в стек, 2 - извлечь элм из стека\n";
-                std::cin >> b;
-                if (b == 1)
-                {
-                    int input;
-                    std::cout << "Введите элемент\n";
-                    std::cin >> input;
-                    stack_lst.push(input);
-                }
-                else
-                {
-                    std::cout << stack_lst.top() << "\n";
-                    stack_lst.pop();
-                }
-            }
-            break;
-        case 4:
-            while (true)
-            {
-                std::cout << "Выберите: 1 - добавить элм в очередь, 2 - извлечь элм из очереди\n";
-                std::cin >> b;
-                if (b == 1)
-                {
-                    int input;
-                    std::cout << "Введите элемент\n";
-                    std::cin >> input;
-                    queue_lst.enqueue(input);
-                }
-                else
-                {
-                    std::cout << queue_lst.front() << "\n";
-                    queue_lst.dequeue();
-                }
-            }
-            break;
-        default:
-            break;
-        }
-    }*/
-
+  
     for (int i = 0; i < array_size; i++)
     {
         stack_arr.add_element(i);
@@ -368,6 +286,6 @@ int main()
     for (int i = 0; i < array_size; i++)
     {
         stack_lst.top();
-        stack_lst.pop();
+       // stack_lst.pop();
     }
 }
