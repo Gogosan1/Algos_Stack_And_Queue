@@ -36,5 +36,7 @@
 |----------------|--------------|------------------|------------------|
 |стек на массивах|![элементы](Readme_img/stack_array_elm.png)|![добавление](Readme_img/stack_array_add.png)|![извлечение](Readme_img/stack_array_get.png)|
 |стек на списках|![элементы](Readme_img/stack_list_elm.png)|![добавление](Readme_img/stack_list_add.png)|![извлечение](Readme_img/stack_list_get.png)|
-|очередь на массивах|![элементы](Readme_img/queue_array_elm.png)|![добавление](Readme_img/queue_array_add.png)|![извлечение](Readme_img/queue_array_get.png)|
+|очередь на массивах|![элементы](Readme_img/queue_array_elm.png)|![добавление](Readme_img/queue_array_add.png)|![извлечение](Readme_img/queue_array_get1.png)![извлечение](Readme_img/queue_array_get2.png)|
 |очередь на списках|![элементы](Readme_img/queue_list_elm.png)|![добавление](Readme_img/queue_list_add.png)|![извлечение](Readme_img/queue_list_get.png)|
+
+### Сравнение скоростей работы
